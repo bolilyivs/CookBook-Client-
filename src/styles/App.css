@@ -1,0 +1,48 @@
+.sidebar{
+    background: url("../images/sidebar.png") !important;
+    background-size: cover  !important;
+    background-repeat: no-repeat  !important;
+}
+
+.sidebarHeader{
+    background-color: #b33939 ;
+    border-bottom-color: #a33432 ;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+.subSideBar{
+    border-bottom: #3d3f49 1px solid   !important;
+    background-color: rgba(0, 0, 0, 0.3)   !important;
+    
+}
+
+.pagebg{
+    background-color: #cddadd!important; 
+    min-height: 100vh;
+}
+
+.headerbg{
+    background: url("../images/bgfood.jpg") !important;
+    background-size: cover  !important;
+    background-repeat: no-repeat  !important;
+}
+
+.headerPanelbg{
+    background-color: rgba(255, 255, 255, 0.3)   !important;
+}
+
+.cardbg{
+    background: url("../images/sidebar.png") !important;
+    background-size: cover  !important;
+    background-repeat: no-repeat  !important;
+}
+
+.cardbglight{
+    background-color: rgba(255, 255, 255, 0.9)   !important;
+}
+
+.whiteText{
+    color: white !important;
+}
+
