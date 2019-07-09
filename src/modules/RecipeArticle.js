@@ -16,7 +16,7 @@ class RecipeArticle extends React.Component{
 
         this.state = {
             recipeId: recipe.id || "Title",
-            author: recipe.author || "User",
+            author: recipe.account || "User",
             title: recipe.title || "Title",
             description: recipe.description || "Description",
             ingredients: recipe.ingredients || [],
@@ -26,9 +26,10 @@ class RecipeArticle extends React.Component{
 
     componentWillReceiveProps(nextProps){
         let recipe = nextProps.recipe || new Recipe();
+        console.log(recipe)
         this.setState({
-            recipeId: recipe.id || "Title",
-            author: recipe.author || "",
+            recipeId: recipe.id || "0",
+            author: recipe.account || "",
             title: recipe.title || "Title",
             description: recipe.description || "Description",
             ingredients: recipe.ingredients || [],
@@ -50,9 +51,10 @@ class RecipeArticle extends React.Component{
             title={this.state.title}
             ingredients={this.state.ingredients} />
             <RecipeCardBottom 
+            recipeId={this.state.recipeId}
             rating={this.state.rating}/>
             <Segment attached="bottom">
-                <Container text>
+                <Container >
                     <div dangerouslySetInnerHTML={this.getDescription()} />
                 </Container>
             </Segment>  

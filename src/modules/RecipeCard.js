@@ -16,7 +16,7 @@ class RecipeCard extends React.Component{
 
         this.state = {
             recipeId: recipe.id || "Title",
-            author: recipe.author || "User",
+            author: recipe.account.username || "User",
             title: recipe.title || "Title",
             ingredients: recipe.ingredients || [],
             rating: recipe.rating || "0",
@@ -33,6 +33,7 @@ class RecipeCard extends React.Component{
             title={this.state.title}
             ingredients={this.state.ingredients} />
             <RecipeCardBottom 
+            recipeId={this.state.recipeId}
             rating={this.state.rating}/>
             <Button 
             attached='bottom'

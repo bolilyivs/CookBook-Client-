@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Grid, Segment, Header} from 'semantic-ui-react';
-import { Link } from 'react-router-dom'
+
 
 class RecipeCardBody extends React.Component{
     constructor(props){

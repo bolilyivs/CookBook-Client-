@@ -14,7 +14,9 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      showMenu: true
+      showMenu: true,
+      account: ""
+
     };
 
     this.showMenu = e => {

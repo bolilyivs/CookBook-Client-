@@ -18,18 +18,30 @@ class Recipe{
     }
 
     crate(){
-        Rest.post("http://localhost:8080/api/recipe/", this.getObject(), () => (console.log("Good")))
+        Rest.post("http://localhost:8080/api/recipe/create", this.getObject(), () => (console.log("Good")))
         return this;
     }
 
     update(){
-        Rest.put("http://localhost:8080/api/recipe/"+this.id+"/update", this.getObject(), () => (console.log("Good")))
+        Rest.put("http://localhost:8080/api/recipe/update/"+this.id, this.getObject(), () => (console.log("Good")))
         return this;
     }
 
     delete(id){
         this.id = id;
-        Rest.delete("http://localhost:8080/api/recipe/"+this.id+"/delete", () => (console.log("Good")))
+        Rest.delete("http://localhost:8080/api/recipe/delete/"+this.id, () => (console.log("Good")))
+        return this;
+    }
+
+    ratingPlus(id){
+        this.id = id;
+        Rest.get("http://localhost:8080/api/recipe/rating/plus/"+this.id, this.load.bind(this))
+        return this;
+    }
+
+    ratingMinus(id){
+        this.id = id;
+        Rest.get("http://localhost:8080/api/recipe/rating/minus/"+this.id, this.load.bind(this))
         return this;
     }
 

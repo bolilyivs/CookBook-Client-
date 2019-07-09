@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Divider, Segment, Header, Button } from 'semantic-ui-react';
 import RecipeEditorMenu from "../modules/recipeCreatorComponents/RecipeEditorMenu"
-import Recipe from "../utils/Recipe"
+import Rest from "../utils/Rest"
 import RecipeFinder from "../utils/RecipeFinder"
 
 class TestPage extends React.Component{
@@ -11,7 +11,7 @@ class TestPage extends React.Component{
     }
 
     send(){
-        new RecipeFinder().getRecipes(this.handler.bind(this))
+        Rest.get("http://localhost:8080/api/recipe", (res) => (console.log(res)));
     }
 
     render(){
