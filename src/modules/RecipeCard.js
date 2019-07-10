@@ -38,7 +38,7 @@ class RecipeCard extends React.Component{
             <Button 
             attached='bottom'
             as={Link} 
-            to={"/recipe/"+this.state.recipeId}>
+            to={"/recipe/"+this.state.recipeId+"/show"}>
                 Читать
             </Button>
         </Grid.Column>

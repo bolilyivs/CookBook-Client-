@@ -1,7 +1,8 @@
 import React from 'react';
 import {Segment, Grid, Menu, Header, Button, Label, List, Statistic } from 'semantic-ui-react';
 import RecipeCard from "../modules/RecipeCard";
-import RecipeFinder from "../utils/RecipeFinder";
+import {AppController} from "../utils/AppController";
+
 
 class RecipeGridPage extends React.Component{
     constructor(props){
@@ -13,7 +14,7 @@ class RecipeGridPage extends React.Component{
     }
 
     getRecipes(){
-        new RecipeFinder().getRecipes(this.recipeRecipes.bind(this));
+        new AppController().setSuccessHandler(this.recipeRecipes.bind(this)).getRecipes();
     }
 
     recipeRecipes(recipes){

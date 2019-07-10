@@ -1,18 +1,18 @@
 import React from 'react';
 import { Form, Input, Divider, Segment, Header, Button } from 'semantic-ui-react';
-import RecipeEditorMenu from "../modules/recipeCreatorComponents/RecipeEditorMenu"
+import SegmentMenu from "../components/common/SegmentMenu"
 import Recipe from "../utils/Recipe"
+import {AppController} from "../utils/AppController";
 
 class RecipeDeletePage extends React.Component{
 
     send(){
-        if(this.props.match && this.props.match.params.number)
-            new Recipe().delete(this.props.match.params.number);
+        new AppController().deleteRecipe(this.props.number);
     }
 
     render(){
         return <div>
-            <RecipeEditorMenu />
+            <SegmentMenu />
             <Segment attached>
                 <Button size="big" attached='bottom' onClick={this.send.bind(this)} >Удалить</Button>
             </Segment>

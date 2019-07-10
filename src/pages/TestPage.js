@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Input, Divider, Segment, Header, Button } from 'semantic-ui-react';
-import RecipeEditorMenu from "../modules/recipeCreatorComponents/RecipeEditorMenu"
 import Rest from "../utils/Rest"
 import RecipeFinder from "../utils/RecipeFinder"
+import SegmentMenu from "../components/common/SegmentMenu"
 
 class TestPage extends React.Component{
 
@@ -16,8 +16,8 @@ class TestPage extends React.Component{
 
     render(){
         return <div>
-            <RecipeEditorMenu />
             <Segment attached>
+                <SegmentMenu />
                 <Button size="big" attached='bottom' onClick={this.send.bind(this)} >Отправить</Button>
             </Segment>
         </div>

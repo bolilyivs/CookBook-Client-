@@ -14,6 +14,10 @@ class RecipeEditorForm extends React.Component{
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({recipe: nextProps.value})
+    }
+
     changeTitle(value){
         let recipe = this.state.recipe;
         recipe.title = value;

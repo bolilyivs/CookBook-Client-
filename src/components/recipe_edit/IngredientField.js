@@ -18,6 +18,7 @@ class IngredientField extends React.Component{
     }
 
     createUI(){
+        
         return this.state.ingredients.map((item, index) => this.createIngredient(item, index) );
     }
 

@@ -1,35 +1,36 @@
 import React from 'react';
 import { Form, Input, Divider, Segment, Header, Button } from 'semantic-ui-react';
-import { Link } from 'react-router-dom'
+
 
 class LoginForm extends React.Component{
     constructor(props){
         super(props)
+
+        this.state = {
+            username: "",
+            password: ""
+        }
+    }
+
+    changeUsername(e){
+        this.setState({username: e.target.value});
+    }
+
+    changePassword(e){
+        this.setState({password: e.target.value});
     }
 
     render(){
-        return <Segment className="subSideBar" >
-            <Form >     
-                <Header size='large' color="grey">Аккаунт</Header>               
+        return <Form >              
                 <Form.Field >
-                    <Input label={{icon: "user"}}  type="text" placeholder="Username"  />               
+                    <Input label={{icon: "user"}}  type="text" placeholder="Username" onChange={this.changeUsername.bind(this)} />               
                 </Form.Field>
                 <Form.Field>
-                    <Input label={{icon: "key"}}  type="password" placeholder="Password"  />               
+                    <Input label={{icon: "key"}}  type="password" placeholder="Password"  onChange={this.changePassword.bind(this)}/>               
                 </Form.Field> 
                 <Divider inverted />
-                <Button.Group widths='2'>
-                    <Button type="submit" >Войти</Button>
-                    <Button type="submit">Регистрация</Button>
-                </Button.Group> 
+                <Button type="submit" color="blue" onClick={e => this.props.onLogin(this.state)} >Войти</Button>
             </Form> 
-            <Button color="blue"
-            attached='bottom'
-            as={Link} 
-            to={"/recipe/create"}>
-                Создать
-            </Button>                
-        </Segment>
     }
 }
 

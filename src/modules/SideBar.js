@@ -1,7 +1,7 @@
 import React from 'react';
-import { Sidebar, Grid, Menu, Icon, Segment } from 'semantic-ui-react';
-import LoginForm from "./LoginForm"
+import { Sidebar, Button, Menu, Icon, Segment } from 'semantic-ui-react';
 import FindForm from "./FindForm"
+import AccountPanel from "./AccountPanel"
 
 class SideBar extends React.Component{
     constructor(props){
@@ -17,7 +17,7 @@ class SideBar extends React.Component{
 
     getPanels(){
       return <React.Fragment>
-        <LoginForm />
+        <AccountPanel />
         <FindForm />
       </React.Fragment>
     }

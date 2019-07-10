@@ -1,17 +1,18 @@
 import React from 'react';
 import { Form, Input, Divider, Segment, Header, Button } from 'semantic-ui-react';
-import RecipeEditorMenu from "../modules/recipeCreatorComponents/RecipeEditorMenu"
-import RecipeEditorForm from "../modules/recipeCreatorComponents/RecipeEditorForm"
+import SegmentMenu from "../components/common/SegmentMenu"
+import RecipeEditorForm from "../components/recipe_edit/RecipeEditorForm"
 import Recipe from "../utils/Recipe"
+import {AppController} from "../utils/AppController";
 
 class RecipeCreatorPage extends React.Component{
     constructor(props){
         super(props);
-
-        if(this.props.match && this.props.match.params.number){
-            console.log(this.props.match.params.number)
+        if(this.props.number){
+            console.log(this.props.number)
+            new AppController().setSuccessHandler(this.loadRecipeFromServer.bind(this)).getRecipe(this.props.number);
             this.state = {
-                recipe: new Recipe().setLoadedHendle(this.loadRecipeFromServer.bind(this)).recive(this.props.match.params.number),
+                recipe: new Recipe(),
                 update: true
             }
         }else{
@@ -19,6 +20,8 @@ class RecipeCreatorPage extends React.Component{
                 recipe: new Recipe()
             }
         }
+
+        
     }
 
     loadRecipeFromServer(recipe){
@@ -31,21 +34,19 @@ class RecipeCreatorPage extends React.Component{
 
     send(){
         if(this.state.update)
-            this.state.recipe.update();
+            new AppController().updateRecipe(this.state.recipe);
         else
-            this.state.recipe.crate();
+        new AppController().createRecipe(this.state.recipe);
     }
 
     render(){
         return <div>
-                <RecipeEditorMenu />
+                <SegmentMenu title="Добавление рецепта" />
             <Segment  attached>
                 <RecipeEditorForm onChange={this.changeRecipe.bind(this)} value={this.state.recipe} />
             </Segment>
             <Button size="big" attached='bottom' onClick={this.send.bind(this)} >Отправить</Button>
         </div>
-        
-        
     }
 }
 

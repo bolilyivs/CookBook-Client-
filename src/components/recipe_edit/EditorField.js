@@ -12,6 +12,7 @@ class EditorField extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+        
         this.setState({data: nextProps.value})
     }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Statistic} from 'semantic-ui-react';
 import Recipe from "../../utils/Recipe";
+import {AppController} from "../../utils/AppController";
 
 class RecipeCardBottom extends React.Component{
     constructor(props){
@@ -12,7 +13,6 @@ class RecipeCardBottom extends React.Component{
     }
     
     componentWillReceiveProps(nextProps){
-        console.log(nextProps)
         this.setState({
             rating: nextProps.rating || "0",
             recipeId: nextProps.recipeId || "0"
@@ -20,16 +20,15 @@ class RecipeCardBottom extends React.Component{
     }
 
     ratingPlus(){
-        console.log(this.state.recipeId)
-        new Recipe().setLoadedHendle(this.update.bind(this)).ratingPlus(this.state.recipeId);
+        new AppController().setSuccessHandler(this.update.bind(this)).ratingPlusRecipe(this.state.recipeId);
     }
 
     ratingMinus(){
-        new Recipe().setLoadedHendle(this.update.bind(this)).ratingMinus(this.state.recipeId);
+        new AppController().setSuccessHandler(this.update.bind(this)).ratingMinusRecipe(this.state.recipeId);
     }
 
     update(res){
-        console.log(res)
+        console.log("test", res)
         this.setState({
             rating: res.rating || "0",
         });
