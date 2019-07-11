@@ -1,7 +1,5 @@
 import React from 'react';
 import { Form, Input, Divider, Segment, Header, Button } from 'semantic-ui-react';
-import Rest from "../utils/Rest"
-import RecipeFinder from "../utils/RecipeFinder"
 import SegmentMenu from "../components/common/SegmentMenu"
 
 class TestPage extends React.Component{
@@ -11,7 +9,7 @@ class TestPage extends React.Component{
     }
 
     send(){
-        Rest.get("http://localhost:8080/api/recipe", (res) => (console.log(res)));
+        
     }
 
     render(){

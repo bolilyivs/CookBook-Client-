@@ -23,6 +23,7 @@ export class AppController{
     
         this.successHandler = (res) => (console.log(`Sucess! : $res`));
         this.redirectLogin = this.redirectLogin.bind(this)
+        this.registrationUrl = this.baseUrl + "/account/"
     }
 
     setAccount(account){
@@ -146,6 +147,16 @@ export class AppController{
             .setErrorHandler(this.redirectLogin)
             .setUrl(this.recipeCreateUrl)
             .get();
+    }
+
+    registration(data){
+        new RestManager()
+            .setAccount(this.account)
+            .setSuccessHandler(this.successHandler)
+            .setErrorHandler(this.redirectLogin)
+            .setUrl(this.registrationUrl)
+            .setData(data)
+            .post();
     }
     
 }

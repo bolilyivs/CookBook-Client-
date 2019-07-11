@@ -12,6 +12,8 @@ class RecipeCardBody extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
+
+        console.log("test", nextProps)
         this.setState({      
             title: nextProps.title || "Title",      
             ingredients: nextProps.ingredients || [],
