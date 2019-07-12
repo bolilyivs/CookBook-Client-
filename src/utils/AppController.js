@@ -15,6 +15,7 @@ export class AppController{
         this.baseUrl = "http://localhost:8080/api"
         this.recipeUrl = this.baseUrl + "/recipe/"
         this.recipeFindUrl = this.baseUrl + "/recipe/find"
+        this.recipeFindCountUrl = this.baseUrl + "/recipe/find"
         this.recipeCreateUrl = this.baseUrl + "/recipe/create"
         this.recipeUpdateUrl = this.baseUrl + "/recipe/update/"
         this.recipeDeleteUrl = this.baseUrl + "/recipe/delete/"
@@ -24,6 +25,8 @@ export class AppController{
         this.successHandler = (res) => (console.log(`Sucess! : $res`));
         this.redirectLogin = this.redirectLogin.bind(this)
         this.registrationUrl = this.baseUrl + "/account/"
+
+        this.tagsUrl = this.baseUrl + "/tag/name"
     }
 
     setAccount(account){
@@ -47,7 +50,28 @@ export class AppController{
     // Recipes
     /////////////////////////////////////////////
 
-    getRecipes(title = "", username = "", tags = [], ingredients = []){
+    getRecipes(title = "", username = "", tags = [], ingredients = [], page=0, size = 10){
+        let finder = {
+            title : title,
+            username : username,
+            tags : tags,
+            ingredients : ingredients,
+            page: page,
+            size: size
+        }
+
+        console.log("finder =>", finder)
+        
+        new RestManager()
+            .setAccount(this.account)
+            .setSuccessHandler(this.successHandler)
+            .setErrorHandler(this.redirectLogin)
+            .setUrl(this.recipeFindUrl)
+            .setData(finder)
+            .post();
+    }
+
+    getRecipesCount(title = "", username = "", tags = [], ingredients = [], page=0, size = 10){
         let finder = {
             title : title,
             username : username,
@@ -59,7 +83,7 @@ export class AppController{
             .setAccount(this.account)
             .setSuccessHandler(this.successHandler)
             .setErrorHandler(this.redirectLogin)
-            .setUrl(this.recipeFindUrl)
+            .setUrl(this.recipeFindCountUrl)
             .setData(finder)
             .post();
     }
@@ -157,6 +181,18 @@ export class AppController{
             .setUrl(this.registrationUrl)
             .setData(data)
             .post();
+    }
+
+
+    ///////////////////////////////////////
+    // Tags
+    //////////////////////////////////////
+    getTags(){
+        new RestManager()
+            .setAccount(this.account)
+            .setSuccessHandler(this.successHandler.bind(this))
+            .setUrl(this.tagsUrl)
+            .get();
     }
     
 }

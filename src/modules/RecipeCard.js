@@ -15,13 +15,14 @@ class RecipeCard extends React.Component{
         let recipe = this.props.recipe || new Recipe()
 
         this.state = {
-            recipeId: recipe.id || "Title",
+            recipeId: recipe.id || "0",
             author: recipe.account.username || "User",
             title: recipe.title || "Title",
             ingredients: recipe.ingredients || [],
             rating: recipe.rating || "0",
         };
     }
+
 
 
     render(){

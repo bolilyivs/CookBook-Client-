@@ -11,8 +11,8 @@ class RestManager{
         this.baseUrl = "http://localhost:8080"
         this.url = this.baseUrl
         this.data = {}
-        this.errorHandler = (err) => (console.log(`error: $err`));
-        this.successHandler = (res) => (console.log(`Sucess! : $res`));
+        this.errorHandler = (err) => (console.log(`error: ${err}`));
+        this.successHandler = (res) => (console.log(`Sucess! : ${res}`));
 
     }
 

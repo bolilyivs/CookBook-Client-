@@ -40,6 +40,9 @@ class App extends React.Component{
           <HiderBar onShowMenu={this.showMenu }/>
           <Switch>
               <Route exact path="/" render = { props => <RecipeGridPage/>}/>
+              <Route exact path="/find/:search" 
+              render = { props => <RecipeGridPage  
+                search= {props.match.params.search}/>}/>
               <Route exact path="/recipe/create"  render = { props => <RecipeCreatorPage />} />
               <Route exact path="/recipe/:number/show"  render = { props => <RecipePage number={props.match.params.number}  />}/>
               <Route exact path="/recipe/:number/edit"  render = { props => <RecipeCreatorPage number={props.match.params.number} />}/>
