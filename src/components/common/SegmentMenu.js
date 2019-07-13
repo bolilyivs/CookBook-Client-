@@ -8,7 +8,7 @@ class SegmentMenu extends React.Component{
             <Menu.Item>
                 <Header >{this.props.title || ""}</Header>
             </Menu.Item>
-            <Menu.Item position="right" icon="remove" as={Link} to="/" />
+            <Menu.Item position="right" icon="remove" as={Link} to="/recipe/" />
         </Menu>
     }
 }

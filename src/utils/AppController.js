@@ -15,7 +15,7 @@ export class AppController{
         this.baseUrl = "http://localhost:8080/api"
         this.recipeUrl = this.baseUrl + "/recipe/"
         this.recipeFindUrl = this.baseUrl + "/recipe/find"
-        this.recipeFindCountUrl = this.baseUrl + "/recipe/find"
+        this.recipeFindCountUrl = this.baseUrl + "/recipe/find/count"
         this.recipeCreateUrl = this.baseUrl + "/recipe/create"
         this.recipeUpdateUrl = this.baseUrl + "/recipe/update/"
         this.recipeDeleteUrl = this.baseUrl + "/recipe/delete/"
@@ -24,7 +24,8 @@ export class AppController{
     
         this.successHandler = (res) => (console.log(`Sucess! : $res`));
         this.redirectLogin = this.redirectLogin.bind(this)
-        this.registrationUrl = this.baseUrl + "/account/"
+        this.loginUrl = this.baseUrl + "/account/login/"
+        this.registrationUrl = this.baseUrl + "/account/registration/"
 
         this.tagsUrl = this.baseUrl + "/tag/name"
     }
@@ -43,7 +44,7 @@ export class AppController{
 
     redirectLogin(res){
         console.log("Bad", res);
-        document.location.href = this.clientUrl + '/account/login'
+        //document.location.href = this.clientUrl + '/account/login'
     }
 
     /////////////////////////////////////////////
@@ -71,7 +72,7 @@ export class AppController{
             .post();
     }
 
-    getRecipesCount(title = "", username = "", tags = [], ingredients = [], page=0, size = 10){
+    getRecipesCount(title = "", username = "", tags = [], ingredients = [], page=1, size = 10){
         let finder = {
             title : title,
             username : username,
@@ -169,13 +170,12 @@ export class AppController{
             .setAccount(this.account)
             .setSuccessHandler(this.successHandler)
             .setErrorHandler(this.redirectLogin)
-            .setUrl(this.recipeCreateUrl)
+            .setUrl(this.loginUrl)
             .get();
     }
 
     registration(data){
         new RestManager()
-            .setAccount(this.account)
             .setSuccessHandler(this.successHandler)
             .setErrorHandler(this.redirectLogin)
             .setUrl(this.registrationUrl)

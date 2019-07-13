@@ -3,10 +3,7 @@ import axios from 'axios';
 
 class RestManager{
     constructor(){
-        this.account = {
-            username: "",
-            password: "",
-        }
+        this.account = false
 
         this.baseUrl = "http://localhost:8080"
         this.url = this.baseUrl
@@ -44,13 +41,23 @@ class RestManager{
     }
 
     getHeaders(){
-        
-        return{ 
+        let param = { 
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': 'Basic ' + btoa(this.account.username + ":" + this.account.password),
             },
         }
+
+        if(this.account){
+            param = { 
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': 'Basic ' + btoa(this.account.username + ":" + this.account.password),
+                },
+            }
+        }
+
+        
+        return param
     }
 
     post(){

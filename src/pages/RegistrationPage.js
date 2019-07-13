@@ -10,13 +10,18 @@ class RegistrationPage extends React.Component{
     registration(data){
         delete data.password2;
         console.log(data)
-        new AppController().registration(data);
+        new AppController().setSuccessHandler(this.ok.bind(this)).registration(data);
+        
+    }
+
+    ok(){
+        var timerId = setTimeout(()=> document.location.href = "/", 500);
     }
 
     render(){
         return <div>
             <SegmentMenu title="Регистрация"/>
-            <RegistrationForm onSubmit={this.registration.bind()}/>
+            <RegistrationForm onSubmit={this.registration.bind(this)}/>
             
         </div>
     }

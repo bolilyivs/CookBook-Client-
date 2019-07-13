@@ -1,6 +1,8 @@
 import React from 'react';
 import { Menu, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
+import Cookies from 'universal-cookie';
+
 
 class RecipeCardHeader extends React.Component{
     constructor(props){
@@ -17,21 +19,35 @@ class RecipeCardHeader extends React.Component{
             author: nextProps.author || "User",
         });
     }
-    
-    render(){
-        return <Menu attached='top' >
-            <Menu.Item>
-                <Header >{this.state.author}</Header>
-            </Menu.Item>
-            <Menu.Menu position="right">
+
+    getEditButton(){
+        let account = new Cookies().get("account");
+        if(!account.roles)
+        account.roles = []
+        if(this.state.author === account.username || account.roles.includes("ROLE_ADMIN")){
+            return <React.Fragment>
                 <Menu.Item as={Link} 
                 to={"/recipe/"+this.state.recipeId+"/edit"} 
                 icon="edit" />
                 <Menu.Item as={Link} 
                 to={"/recipe/"+this.state.recipeId+"/remove"}  
                 icon="trash alternate" />
+            </React.Fragment>
+        }
+    }
+    
+    render(){
+
+
+
+        return <Menu attached='top' >
+            <Menu.Item>
+                <Header >{this.state.author}</Header>
+            </Menu.Item>
+            <Menu.Menu position="right">
+                {this.getEditButton()}
                 <Menu.Item as={Link} 
-                to={"/"}  
+                to={"/recipe/"}  
                 icon="close" />
             </Menu.Menu>
         </Menu>

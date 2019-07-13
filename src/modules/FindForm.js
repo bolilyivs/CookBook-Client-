@@ -18,7 +18,6 @@ class FindForm extends React.Component{
         }  
 
         new AppController().setSuccessHandler(this.getTagOptions.bind(this)).getTags();
-        this.changePath = this.changePath.bind(this);
     }
 
     getTagOptions(options){
@@ -43,46 +42,42 @@ class FindForm extends React.Component{
         this.setState({ingredients: value});
     }
 
-
-
-    changePath(){
-        let path = "/find/" + this.state.title + "&" +  this.state.username + "&";
-        let options = ""        
-        if(this.state.tags.length > 0)
-            options = this.state.tags.join(";")
-        path += options + "&";
-        options = []
-        if(this.state.ingredients.length > 0)
-            options = this.state.ingredients.join(";")
-        path += options;
-        return path
+    submit(){
+        if(this.props.onSubmit){
+            this.props.onSubmit({
+                title: this.state.title,
+                username: this.state.username,
+                tags: this.state.tags,
+                ingredients: this.state.ingredients,
+            })
+        }
     }
     render(){
-        return <Segment className="subSideBar" placeholder inverted>
-            <Form >     
-                <Header size='large' color="grey">Поиск</Header>               
-                <Form.Field >
-                    <Input label={{icon: "search"}}  type="text" placeholder="title" onChange={this.titleChange.bind(this)} />               
-                </Form.Field>
-                <Form.Field>
-                    <Input label={{icon: "user circle"}}  type="text" placeholder="Author" onChange={this.usernameChange.bind(this)} />               
-                </Form.Field>
-                <Divider inverted />
-                <Header size='medium' color="grey">Категории</Header>
-                <Form.Field>
-                    <MultiAddDropdown  placeholder='Tags' onChange={this.tagsChange.bind(this)} options={this.state.tagOptions} />               
-                </Form.Field> 
-                <Divider inverted />
-                <Header size='medium' color="grey">Ингредиенты</Header>
-                <Form.Field>
-                    <MultiAddDropdown placeholder='Ingredients' onChange={this.ingredientsChange.bind(this)} options={this.state.ingredientOptions}/>               
-                </Form.Field>  
-                <Divider inverted />
-                <Button.Group widths='2'>
-                    <Button  icon='signup' size='big' content="Поиск"   as={Link} to={this.changePath()} />
-                </Button.Group>  
-            </Form>                
-        </Segment>
+        return <div>
+            <Segment attached="top">
+                <Form >     
+                    <Header size='large' color="grey">Фильтр</Header>               
+                    <Form.Field >
+                        <Input label={{icon: "search"}}  type="text" placeholder="title" onChange={this.titleChange.bind(this)} />               
+                    </Form.Field>
+                    <Form.Field>
+                        <Input label={{icon: "user circle"}}  type="text" placeholder="Author" onChange={this.usernameChange.bind(this)} />               
+                    </Form.Field>
+                    <Divider inverted />
+                    <Header size='medium' color="grey">Категории</Header>
+                    <Form.Field>
+                        <MultiAddDropdown  placeholder='Tags' onChange={this.tagsChange.bind(this)} options={this.state.tagOptions} />               
+                    </Form.Field> 
+                    <Divider inverted />
+                    <Header size='medium' color="grey">Ингредиенты</Header>
+                    <Form.Field>
+                        <MultiAddDropdown placeholder='Ingredients' onChange={this.ingredientsChange.bind(this)} options={this.state.ingredientOptions}/>               
+                    </Form.Field>  
+                    <Divider inverted /> 
+                </Form>                
+            </Segment>
+            <Button attached="bottom" color="blue" icon='filter' size='big' content="Применить" onClick={this.submit.bind(this)} />
+        </div>
     }
 }
 
