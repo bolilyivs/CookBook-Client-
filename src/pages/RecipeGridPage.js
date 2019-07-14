@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pagination, Grid, Menu, Header, Button, Label, List, Statistic, Segment } from 'semantic-ui-react';
+import {Pagination, Grid } from 'semantic-ui-react';
 import RecipeCard from "../modules/RecipeCard";
 import FindForm from "../modules/FindForm";
 import {AppController} from "../utils/AppController";
@@ -9,7 +9,9 @@ import Cookies from 'universal-cookie';
 class RecipeGridPage extends React.Component{
     constructor(props){
         super(props)
+
         this.my = this.props.my;
+        this.tag = this.props.tag;
         this.state={
             recipes: [],
             totalPages: 1,
@@ -36,33 +38,42 @@ class RecipeGridPage extends React.Component{
             search: {
                 title: "",
                 username: "",
-                tags: [],
+                tags:  [],
                 ingredients: [],
             }
         })
         this.my = nextProps.my;
+        this.tag = nextProps.tag;
 
         this.getRecipes(this.state.search);
         this.getCount(this.state.search);
     }
 
     getCount(search){
-        if(this.my){
+        let account = new Cookies().get("account");
+        if(this.my &&  account &&account.roles && account.roles.includes("ROLE_USER") ){
             new AppController().setSuccessHandler(this.recipeCount.bind(this)).getRecipesCount(search.title, 
-                new Cookies().get("account").username, search.tags, search.ingredients);
+                new Cookies().get("account").username, this.getTags(search), search.ingredients);
         }else{
             new AppController().setSuccessHandler(this.recipeCount.bind(this)).getRecipesCount(search.title, 
-                search.username, search.tags, search.ingredients);
+                search.username, this.getTags(search), search.ingredients);
         }
     }
 
+    getTags(search){
+        if(this.tag)
+            return Array.from(new Set(search.tags.concat([this.tag])))
+        return search.tags
+    }
+
     getRecipes(search, activePage = 1){
-        if(this.my){
+        let account = new Cookies().get("account");
+        if(this.my &&  account &&account.roles && account.roles.includes("ROLE_USER") ){
             new AppController().setSuccessHandler(this.recipeRecipes.bind(this)).getRecipes(search.title, 
-                new Cookies().get("account").username, search.tags, search.ingredients, activePage-1);  
+                new Cookies().get("account").username, this.getTags(search), search.ingredients, activePage-1, 10, search.sorting, search.sortingDir);  
         }else{
             new AppController().setSuccessHandler(this.recipeRecipes.bind(this)).getRecipes(search.title, 
-                search.username, search.tags, search.ingredients, activePage-1);  
+                search.username, this.getTags(search), search.ingredients, activePage-1, 10, search.sorting, search.sortingDir);  
         } 
     }
 
@@ -77,8 +88,6 @@ class RecipeGridPage extends React.Component{
         this.getCount(search);
     }
     
-    
-
     recipeRecipes(recipes){
         this.setState({recipes: recipes.data});
     }

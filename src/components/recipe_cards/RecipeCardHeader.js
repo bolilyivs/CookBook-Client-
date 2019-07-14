@@ -27,10 +27,10 @@ class RecipeCardHeader extends React.Component{
         if(this.state.author === account.username || account.roles.includes("ROLE_ADMIN")){
             return <React.Fragment>
                 <Menu.Item as={Link} 
-                to={"/recipe/"+this.state.recipeId+"/edit"} 
+                to={"/recipe/edit/"+this.state.recipeId} 
                 icon="edit" />
                 <Menu.Item as={Link} 
-                to={"/recipe/"+this.state.recipeId+"/remove"}  
+                to={"/recipe/remove/"+this.state.recipeId}  
                 icon="trash alternate" />
             </React.Fragment>
         }

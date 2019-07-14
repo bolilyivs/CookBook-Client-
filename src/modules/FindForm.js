@@ -1,7 +1,6 @@
 import React from 'react';
-import { Form, Input, Divider, Segment, Header, Button, Redirect } from 'semantic-ui-react';
+import { Form, Input, Divider, Segment, Header, Button, Menu, Grid, Radio } from 'semantic-ui-react';
 import MultiAddDropdown from "../components/common/MultiAddDropdown"
-import { withRouter } from 'react-router-dom';
 import {AppController} from "../utils/AppController";
 import { Link } from 'react-router-dom'
 
@@ -15,13 +14,14 @@ class FindForm extends React.Component{
             ingredients: [],
             tagOptions: [],
             ingredientOptions: [],
+            sorting: "rating",
+            sortingDir: "desc",
         }  
 
         new AppController().setSuccessHandler(this.getTagOptions.bind(this)).getTags();
     }
 
     getTagOptions(options){
-        console.log(options)
         this.setState({tagOptions: options.data.map( val => val.name)});
     }
 
@@ -34,12 +34,19 @@ class FindForm extends React.Component{
     }
 
     tagsChange(value){
-        console.log(this.state)
         this.setState({tags: value});
     }
 
     ingredientsChange(value){
         this.setState({ingredients: value});
+    }
+
+    sortingChange(e, { value }){
+        this.setState({ sorting: value })
+    }
+
+    sortingDirChange(e, { value }){
+        this.setState({ sortingDir: value })
     }
 
     submit(){
@@ -49,11 +56,77 @@ class FindForm extends React.Component{
                 username: this.state.username,
                 tags: this.state.tags,
                 ingredients: this.state.ingredients,
+                sorting: this.state.sorting,
+                sortingDir: this.state.sortingDir,
             })
         }
     }
-    render(){
+
+    getSubMenu(){
+        return this.state.tagOptions.map((item, index) => <Menu.Item key={index} content={item} as={Link}to={"/recipe/find/" + item}/>);
+    }
+
+    getSortingPanel(){
         return <div>
+            <h3>Сортировка</h3>
+            <Form.Field>
+                <Radio
+                    label='По названию'
+                    name='sorting'
+                    value='title'
+                    checked={this.state.sorting === 'title'}
+                    onChange={this.sortingChange.bind(this)}
+                />
+            </Form.Field>
+            <Form.Field>
+                <Radio
+                    label='По рейтингу'
+                    name='sorting'
+                    value='rating'
+                    checked={this.state.sorting === 'rating'}
+                    onChange={this.sortingChange.bind(this)}
+                />
+            </Form.Field>
+            <Form.Field>
+                <Radio
+                    label='В порядке создания'
+                    name='sorting'
+                    value='last'
+                    checked={this.state.sorting === 'last'}
+                    onChange={this.sortingChange.bind(this)}
+                />
+            </Form.Field>
+        </div>
+    }
+
+    getSortingDirPanel(){
+        return <div>
+            <h3>Направление</h3>
+            <Form.Field>
+                <Radio
+                    label='По возрастанию'
+                    name='sortingDiv'
+                    value='asc'
+                    checked={this.state.sortingDir === 'asc'}
+                    onChange={this.sortingDirChange.bind(this)}
+                />
+            </Form.Field>
+            <Form.Field>
+                <Radio
+                    label='По убыванию'
+                    name='sortingDiv'
+                    value='desc'
+                    checked={this.state.sortingDir === 'desc'}
+                    onChange={this.sortingDirChange.bind(this)}
+                />
+            </Form.Field>
+        </div>
+    }
+
+
+    render(){
+        return <Grid>
+            <Grid.Row>
             <Segment attached="top">
                 <Form >     
                     <Header size='large' color="grey">Фильтр</Header>               
@@ -66,7 +139,7 @@ class FindForm extends React.Component{
                     <Divider inverted />
                     <Header size='medium' color="grey">Категории</Header>
                     <Form.Field>
-                        <MultiAddDropdown  placeholder='Tags' onChange={this.tagsChange.bind(this)} options={this.state.tagOptions} />               
+                        <MultiAddDropdown onChange={this.tagsChange.bind(this)} options={this.state.tagOptions} />               
                     </Form.Field> 
                     <Divider inverted />
                     <Header size='medium' color="grey">Ингредиенты</Header>
@@ -74,11 +147,21 @@ class FindForm extends React.Component{
                         <MultiAddDropdown placeholder='Ingredients' onChange={this.ingredientsChange.bind(this)} options={this.state.ingredientOptions}/>               
                     </Form.Field>  
                     <Divider inverted /> 
+                    {this.getSortingPanel()}
+                    <Divider inverted /> 
+                    {this.getSortingDirPanel()}
                 </Form>                
             </Segment>
-            <Button attached="bottom" color="blue" icon='filter' size='big' content="Применить" onClick={this.submit.bind(this)} />
-        </div>
+            <Button fluid attached="bottom" color="blue" icon='filter' size='big' content="Применить" onClick={this.submit.bind(this)} />
+
+            <Menu pointing  vertical fluid>
+                <Menu.Item><Menu.Header  content="Категории"/></Menu.Item>
+                <Menu.Item content="Все" as={Link} to={"/recipe/"}/>
+                {this.getSubMenu()}
+            </Menu>
+            </Grid.Row>
+        </Grid>
     }
 }
 
-export default withRouter(FindForm);
+export default FindForm;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Menu, Statistic} from 'semantic-ui-react';
-import Recipe from "../../utils/Recipe";
 import {AppController} from "../../utils/AppController";
 
 class RecipeCardBottom extends React.Component{
@@ -28,7 +27,6 @@ class RecipeCardBottom extends React.Component{
     }
 
     update(res){
-        console.log("test", res)
         this.setState({
             rating: res.rating || "0",
         });

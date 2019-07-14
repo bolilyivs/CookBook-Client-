@@ -20,6 +20,7 @@ class RecipeCard extends React.Component{
             title: recipe.title || "Title",
             ingredients: recipe.ingredients || [],
             rating: recipe.rating || "0",
+            tags: recipe.tags.map(item => item.title) || "0",
         };
     }
 
@@ -32,14 +33,15 @@ class RecipeCard extends React.Component{
             recipeId={this.state.recipeId} />
             <RecipeCardBody 
             title={this.state.title}
-            ingredients={this.state.ingredients} />
+            ingredients={this.state.ingredients} 
+            tags={this.state.tags}/>
             <RecipeCardBottom 
             recipeId={this.state.recipeId}
             rating={this.state.rating}/>
             <Button 
             attached='bottom'
             as={Link} 
-            to={"/recipe/"+this.state.recipeId+"/show"}>
+            to={"/recipe/show/"+this.state.recipeId}>
                 Читать
             </Button>
         </Grid.Column>

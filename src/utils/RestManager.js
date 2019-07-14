@@ -4,7 +4,6 @@ import axios from 'axios';
 class RestManager{
     constructor(){
         this.account = false
-
         this.baseUrl = "http://localhost:8080"
         this.url = this.baseUrl
         this.data = {}
@@ -70,7 +69,6 @@ class RestManager{
     }
 
     delete(){
-        console.log(this.url, this.getHeaders())
         return axios.delete(this.url, this.getHeaders()).then(this.successHandler).catch(this.errorHandler);
     }
 

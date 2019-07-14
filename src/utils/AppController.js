@@ -1,11 +1,12 @@
 import RestManager from './RestManager';
 import Cookies from 'universal-cookie';
+import createHistory from 'history/createBrowserHistory';
+
+export const history = createHistory(); 
 
 export class AppController{
     constructor(){
-
         this.account = new Cookies().get("account");
-        console.log(this.account)
         if(!this.account )
             this.account ={
                 username: "",
@@ -30,35 +31,43 @@ export class AppController{
         this.tagsUrl = this.baseUrl + "/tag/name"
     }
 
-    setAccount(account){
-        console.log("Вход в setAccount")
-        //this.account = account;
-        return this;
-    }
-
     setSuccessHandler(handler){
         this.successHandler = handler;
         
         return this;
     }
 
+    setErrorHandler(handler){
+        this.redirectLogin = handler;
+        
+        return this;
+    }
+
     redirectLogin(res){
         console.log("Bad", res);
-        //document.location.href = this.clientUrl + '/account/login'
+        this.go("/error");
+    }
+
+    go(path){
+        history.push(path);
+        history.go();
     }
 
     /////////////////////////////////////////////
     // Recipes
     /////////////////////////////////////////////
 
-    getRecipes(title = "", username = "", tags = [], ingredients = [], page=0, size = 10){
+    getRecipes(title = "", username = "", tags = [], ingredients = [], page=0, size = 10, sorting = "rating", sortingDir="desc"){
         let finder = {
             title : title,
             username : username,
             tags : tags,
             ingredients : ingredients,
             page: page,
-            size: size
+            size: size,
+            sorting: sorting,
+            sortingDir: sortingDir
+
         }
 
         console.log("finder =>", finder)
@@ -109,7 +118,6 @@ export class AppController{
             tags : data.tags.map(item => item.title),
             ingredients : data.ingredients.map(item => ({"title" : item.title, "amount": item.amount })),
         };
-        console.log(this.successHandler);
         this.successHandler(recipe);
     }
 
@@ -134,7 +142,6 @@ export class AppController{
     }
 
     deleteRecipe(id){
-        console.log(this.recipeDeleteUrl+id)
         new RestManager()
             .setAccount(this.account)
             .setSuccessHandler(this.successHandler)

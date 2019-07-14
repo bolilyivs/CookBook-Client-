@@ -1,5 +1,4 @@
 import React from 'react';
-import {Segment, Grid, Menu, Header, Button, Label, List, Statistic } from 'semantic-ui-react';
 import RecipeArticle from "../modules/RecipeArticle";
 import Recipe from "../utils/Recipe"
 import {AppController} from "../utils/AppController";
@@ -14,17 +13,13 @@ class RecipePage extends React.Component{
     }
 
     recipeRecipe(recipe){
-        console.log(recipe);
         this.setState({recipe: recipe});
     }
 
     render(){
         return <div>
             <RecipeArticle recipe={this.state.recipe}/>
-            </div>
-
-        
-        
+            </div>  
     }
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Form, Input, List, Segment, Header, Button, Dropdown, Menu } from 'semantic-ui-react';
-import { Link } from 'react-router-dom'
+import { Form, Input, List, Button } from 'semantic-ui-react';
 
 class IngredientField extends React.Component{
 

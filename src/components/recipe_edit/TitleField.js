@@ -24,7 +24,7 @@ class TitleEdit extends React.Component{
     }
 
     render(){
-        return <Form.Field >
+        return <Form.Field required>
             {this.createField()}             
         </Form.Field>
     }

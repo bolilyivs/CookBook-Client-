@@ -4,11 +4,10 @@ import SegmentMenu from "../components/common/SegmentMenu"
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom'
 
-class MainPage extends React.Component{
+class SuccessPage extends React.Component{
     constructor(props){
         super(props)
     }
-
 
     review(){
         return <Grid.Column>
@@ -29,4 +28,4 @@ class MainPage extends React.Component{
     }
 }
 
-export default MainPage;
+export default SuccessPage;

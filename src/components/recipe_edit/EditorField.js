@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Label} from 'semantic-ui-react';
+import { Form} from 'semantic-ui-react';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
@@ -12,7 +12,6 @@ class EditorField extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
-        
         this.setState({data: nextProps.value})
     }
 
@@ -23,7 +22,7 @@ class EditorField extends React.Component{
     }
 
     createEdit(){
-        return<CKEditor
+        return<CKEditor 
                 editor={ ClassicEditor }
                 onChange={this.changeData.bind(this)}
                 data={this.state.data} 
@@ -31,7 +30,7 @@ class EditorField extends React.Component{
     }
 
     render(){
-        return <Form.Field >
+        return <Form.Field>
             <label>Описание</label>
             {this.createEdit()}             
         </Form.Field>

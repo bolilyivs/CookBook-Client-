@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Divider, Segment, Header, Button } from 'semantic-ui-react';
+import { Form, Input, Divider, Segment, Button } from 'semantic-ui-react';
 
 
 class RegistrationForm extends React.Component{
@@ -56,7 +56,9 @@ class RegistrationForm extends React.Component{
                     <Divider inverted />
                 </Form> 
             </Segment>
-            <Button type="submit" color="blue" attached="bottom" onClick={this.submit.bind(this)}>Регистрация</Button>
+            <Button type="submit" color="blue" attached="bottom" onClick={this.submit.bind(this)}
+            disabled={ !this.state.password || !this.state.password2 || !this.state.username || !this.state.email}
+            >Регистрация</Button>
         </React.Fragment>
     }
 }

@@ -2,20 +2,21 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 import IngredientField from "./IngredientField"
 import EditorField from "./EditorField"
-import TagsField from "./TagsField"
 import TitleField from "./TitleField"
 import Recipe from "../../utils/Recipe"
+import MultiAddDropdown from "../../components/common/MultiAddDropdown"
 
 class RecipeEditorForm extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             recipe: this.props.value || new Recipe(),
+            tags: this.props.tags || []
         }
     }
 
     componentWillReceiveProps(nextProps){
-        this.setState({recipe: nextProps.value})
+        this.setState({recipe: nextProps.value, tags: nextProps.tags || []})
     }
 
     changeTitle(value){
@@ -56,9 +57,9 @@ class RecipeEditorForm extends React.Component{
                     <IngredientField
                         values={this.state.recipe.ingredients}
                         onChange={this.changeIngredinet.bind(this)}/>
-                    <TagsField 
+                    <MultiAddDropdown 
                         values={this.state.recipe.tags} 
-                        tags={["tag2", "tag1", "tag3"]}
+                        options={this.state.tags}
                         onChange={this.changeTags.bind(this)}/>
                     <EditorField 
                         value={this.state.recipe.description}

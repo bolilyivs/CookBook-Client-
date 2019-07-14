@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Divider, Segment, Header, Button } from 'semantic-ui-react';
+import { Form, Input, Divider, Button } from 'semantic-ui-react';
 
 
 class LoginForm extends React.Component{
