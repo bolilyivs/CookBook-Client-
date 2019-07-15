@@ -47,7 +47,8 @@ class RecipeArticle extends React.Component{
             <Grid.Column>
                 <RecipeCardHeader 
                 author={this.state.author}
-                recipeId={this.state.recipeId} />
+                recipeId={this.state.recipeId} article />
+                
                 <RecipeCardBody 
                 title={this.state.title}
                 ingredients={this.state.ingredients} 

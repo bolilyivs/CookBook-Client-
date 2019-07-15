@@ -28,7 +28,7 @@ class App extends React.Component{
 
   render(){
     return (
-      <div className="App pagebg">
+      <div className="App pagebg ">
           <HiderBar />
           <MainMenu />
           <Switch>

@@ -3,7 +3,6 @@ import { Menu, Header} from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import Cookies from 'universal-cookie';
 
-
 class RecipeCardHeader extends React.Component{
     constructor(props){
         super(props);
@@ -37,18 +36,13 @@ class RecipeCardHeader extends React.Component{
     }
     
     render(){
-
-
-
         return <Menu attached='top' >
             <Menu.Item>
                 <Header >{this.state.author}</Header>
             </Menu.Item>
             <Menu.Menu position="right">
                 {this.getEditButton()}
-                <Menu.Item as={Link} 
-                to={"/recipe/"}  
-                icon="close" />
+                {(this.props.article)? <Menu.Item as={Link} to={"/recipe/find"}  icon="close" /> : ""}
             </Menu.Menu>
         </Menu>
     }

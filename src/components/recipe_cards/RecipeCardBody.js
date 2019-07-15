@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Grid, Segment, Header, Label} from 'semantic-ui-react';
+import { List, Grid, Segment, Header, Label, Divider} from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 
 class RecipeCardBody extends React.Component{
@@ -22,8 +22,8 @@ class RecipeCardBody extends React.Component{
     }
 
     getTitle(){
-        return <Header as='h2'
-             icon="food" 
+        return <Header as='h1'
+             icon="food"
              content={this.state.title} /> 
     }
 
@@ -55,25 +55,17 @@ class RecipeCardBody extends React.Component{
     }
     
     render(){
-        return <Segment padded attached>
-        <Grid>
-            <Grid.Row >
-                <Grid.Column>
-                    {this.getTags()}
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row >
-                <Grid.Column>
-                    {this.getTitle()}
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row >
-                <Grid.Column>
-                    {this.getIngredients()}
-                </Grid.Column>
-            </Grid.Row>        
-        </Grid>
-    </Segment>
+        return <React.Fragment>
+        <Segment padded attached inverted className="cardbg">
+            {this.getTags()}
+            {this.getTitle()}
+        </ Segment>
+        <Segment padded attached >
+            <Header content="Ингредиенты"/>
+            {this.getIngredients()}
+        </ Segment>
+        </React.Fragment>
+        
     }
 }
 

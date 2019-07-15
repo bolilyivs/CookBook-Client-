@@ -115,7 +115,7 @@ class RecipeGridPage extends React.Component{
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row >
-                    <Pagination activePage={this.state.activePage}  totalPages={this.state.totalPages} onPageChange={this.pageChange.bind(this)}/>
+                    <Pagination defaultActivePage={1} activePage={this.state.activePage}  totalPages={this.state.totalPages} onPageChange={this.pageChange.bind(this)}/>
             </Grid.Row>
         </Grid>
     }

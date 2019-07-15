@@ -51,7 +51,7 @@ class RegistrationForm extends React.Component{
                         <Input label={{icon: "key", content: "Повторите пароль"}}  type="password" placeholder="Повторите пароль"  onChange={this.password2Change.bind(this)}/>               
                     </Form.Field> 
                     <Form.Field>
-                        <Input label={{icon: "mail", content: "Email"}}  type="password" placeholder="Email"  onChange={this.emailChange.bind(this)}/>               
+                        <Input label={{icon: "mail", content: "Email"}}  type="text" placeholder="Email"  onChange={this.emailChange.bind(this)}/>               
                     </Form.Field> 
                     <Divider inverted />
                 </Form> 
