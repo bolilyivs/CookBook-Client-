@@ -22,6 +22,8 @@ export class AppController{
         this.recipeDeleteUrl = this.baseUrl + "/recipe/delete/"
         this.recipeRatingPlusUrl = this.baseUrl + "/recipe/rating/plus/"
         this.recipeRatingMinusUrl = this.baseUrl + "/recipe/rating/minus/"
+
+        this.recipeHideUrl = this.baseUrl + "/recipe/hide/"
     
         this.successHandler = (res) => (console.log(`Sucess! : $res`));
         this.redirectLogin = this.redirectLogin.bind(this)
@@ -57,7 +59,7 @@ export class AppController{
     // Recipes
     /////////////////////////////////////////////
 
-    getRecipes(title = "", username = "", tags = [], ingredients = [], page=0, size = 10, sorting = "rating", sortingDir="desc"){
+    getRecipes(title = "", username = "", tags = [], ingredients = [], page=0, size = 10, sorting = "rating", sortingDir="desc", hide=false){
         let finder = {
             title : title,
             username : username,
@@ -66,11 +68,11 @@ export class AppController{
             page: page,
             size: size,
             sorting: sorting,
-            sortingDir: sortingDir
-
+            sortingDir: sortingDir,
+            hide: hide
         }
 
-        console.log("finder =>", finder)
+        //console.log("finder =>", finder)
         
         new RestManager()
             .setAccount(this.account)
@@ -81,12 +83,13 @@ export class AppController{
             .post();
     }
 
-    getRecipesCount(title = "", username = "", tags = [], ingredients = [], page=1, size = 10){
+    getRecipesCount(title = "", username = "", tags = [], ingredients = [], hide=false){
         let finder = {
             title : title,
             username : username,
             tags : tags,
             ingredients : ingredients,
+            hide: hide,
         }
         
         new RestManager()
@@ -117,7 +120,9 @@ export class AppController{
             account : data.account.username,     
             tags : data.tags.map(item => item.title),
             ingredients : data.ingredients.map(item => ({"title" : item.title, "amount": item.amount })),
+            hide: data.hide
         };
+        
         this.successHandler(recipe);
     }
 
@@ -165,6 +170,15 @@ export class AppController{
             .setSuccessHandler(this.onLoadedGetRecipe.bind(this))
             .setErrorHandler(this.redirectLogin)
             .setUrl(this.recipeRatingMinusUrl+id)
+            .get();
+    }
+
+    recipeHide(id){
+        new RestManager()
+            .setAccount(this.account)
+            .setSuccessHandler(this.onLoadedGetRecipe.bind(this))
+            .setErrorHandler(this.redirectLogin)
+            .setUrl(this.recipeHideUrl+id)
             .get();
     }
 

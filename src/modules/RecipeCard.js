@@ -21,6 +21,7 @@ class RecipeCard extends React.Component{
             ingredients: recipe.ingredients || [],
             rating: recipe.rating || "0",
             tags: recipe.tags.map(item => item.title) || "0",
+            recipeHide: recipe.hide
         };
     }
 
@@ -30,7 +31,8 @@ class RecipeCard extends React.Component{
         return <Grid.Column>
             <RecipeCardHeader 
             author={this.state.author}
-            recipeId={this.state.recipeId} />
+            recipeId={this.state.recipeId} 
+            recipeHide={this.state.recipeHide}/>
             <RecipeCardBody 
             title={this.state.title}
             ingredients={this.state.ingredients} 

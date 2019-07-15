@@ -8,7 +8,8 @@ class RecipeCardHeader extends React.Component{
         super(props);
         this.state = {
             author: this.props.author || "User",
-            recipeId: this.props.recipeId || ""
+            recipeId: this.props.recipeId || "",
+            recipeHide: this.props.recipeHide || false,
         };
     }
 
@@ -16,7 +17,18 @@ class RecipeCardHeader extends React.Component{
         this.setState({
             recipeId: nextProps.recipeId || "Title",
             author: nextProps.author || "User",
+            recipeHide: nextProps.recipeHide || false,
         });
+    }
+
+    getHide(){
+        let account = new Cookies().get("account");
+        if(account.roles && account.roles.includes("ROLE_ADMIN")){
+            return  <Menu.Item as={Link} 
+                to={"/recipe/hide/"+this.state.recipeId}  
+                icon={this.state.recipeHide ? "eye " : "eye slash"} />
+        }
+        return ""
     }
 
     getEditButton(){
@@ -31,6 +43,7 @@ class RecipeCardHeader extends React.Component{
                 <Menu.Item as={Link} 
                 to={"/recipe/remove/"+this.state.recipeId}  
                 icon="trash alternate" />
+                {this.getHide()}
             </React.Fragment>
         }
     }

@@ -7,6 +7,7 @@ import RecipePage from "./pages/RecipePage";
 import RecipeCreatorPage from "./pages/RecipeCreatorPage";
 import TestPage from "./pages/TestPage";
 import RecipeDeletePage from "./pages/RecipeDeletePage";
+import RecipeHidePage from "./pages/RecipeHidePage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import RegistrationPage from "./pages/RegistrationPage";
@@ -42,6 +43,7 @@ class App extends React.Component{
               <Route exact path="/recipe/show/:number"  render = { props => <RecipePage number={props.match.params.number}  />}/>
               <Route exact path="/recipe/edit/:number"  render = { props => <RecipeCreatorPage number={props.match.params.number} />}/>
               <Route exact path="/recipe/remove/:number"  render = { props => <RecipeDeletePage  number={props.match.params.number} />}/>
+              <Route exact path="/recipe/hide/:number"  render = { props => <RecipeHidePage  number={props.match.params.number} />}/>
               <Route exact path="/test"  render = { props => <TestPage/>}/>
               <Route exact path="/account/login" render = { props => <LoginPage />}/>
               <Route exact path="/account/logout" render = { props => <LogoutPage />}/>

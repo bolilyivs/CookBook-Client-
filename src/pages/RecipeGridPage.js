@@ -16,7 +16,7 @@ class RecipeGridPage extends React.Component{
             recipes: [],
             totalPages: 1,
             activePage: 1,
-            countRecipes: 10,
+            countRecipes: 6,
             search: {
                 title: "",
                 username: "",
@@ -53,10 +53,10 @@ class RecipeGridPage extends React.Component{
         let account = new Cookies().get("account");
         if(this.my &&  account &&account.roles && account.roles.includes("ROLE_USER") ){
             new AppController().setSuccessHandler(this.recipeCount.bind(this)).getRecipesCount(search.title, 
-                new Cookies().get("account").username, this.getTags(search), search.ingredients);
+                new Cookies().get("account").username, this.getTags(search), search.ingredients, search.hide);
         }else{
             new AppController().setSuccessHandler(this.recipeCount.bind(this)).getRecipesCount(search.title, 
-                search.username, this.getTags(search), search.ingredients);
+                search.username, this.getTags(search), search.ingredients, search.hide);
         }
     }
 
@@ -70,10 +70,10 @@ class RecipeGridPage extends React.Component{
         let account = new Cookies().get("account");
         if(this.my &&  account &&account.roles && account.roles.includes("ROLE_USER") ){
             new AppController().setSuccessHandler(this.recipeRecipes.bind(this)).getRecipes(search.title, 
-                new Cookies().get("account").username, this.getTags(search), search.ingredients, activePage-1, 10, search.sorting, search.sortingDir);  
+                new Cookies().get("account").username, this.getTags(search), search.ingredients, activePage-1, this.state.countRecipes, search.sorting, search.sortingDir, search.hide);  
         }else{
             new AppController().setSuccessHandler(this.recipeRecipes.bind(this)).getRecipes(search.title, 
-                search.username, this.getTags(search), search.ingredients, activePage-1, 10, search.sorting, search.sortingDir);  
+                search.username, this.getTags(search), search.ingredients, activePage-1, this.state.countRecipes, search.sorting, search.sortingDir, search.hide);  
         } 
     }
 
@@ -115,7 +115,7 @@ class RecipeGridPage extends React.Component{
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row >
-                    <Pagination defaultActivePage={1} activePage={this.state.activePage}  totalPages={this.state.totalPages} onPageChange={this.pageChange.bind(this)}/>
+                    <Pagination  activePage={this.state.activePage}  totalPages={this.state.totalPages} onPageChange={this.pageChange.bind(this)}/>
             </Grid.Row>
         </Grid>
     }

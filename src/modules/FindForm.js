@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form, Input, Divider, Segment, Header, Button, Menu, Grid, Radio } from 'semantic-ui-react';
+import { Form, Input, Divider, Segment, Header, Button, Menu, Grid, Radio, Checkbox } from 'semantic-ui-react';
 import MultiAddDropdown from "../components/common/MultiAddDropdown"
 import {AppController} from "../utils/AppController";
 import { Link } from 'react-router-dom'
+import Cookies from 'universal-cookie';
 
 class FindForm extends React.Component{
     constructor(props){
@@ -16,6 +17,7 @@ class FindForm extends React.Component{
             ingredientOptions: [],
             sorting: "rating",
             sortingDir: "desc",
+            hide: false
         }  
 
         new AppController().setSuccessHandler(this.getTagOptions.bind(this)).getTags();
@@ -49,7 +51,12 @@ class FindForm extends React.Component{
         this.setState({ sortingDir: value })
     }
 
+    hideChange(e, { value }){
+        this.setState({ hide: !this.state.hide })
+    }
+
     submit(){
+        console.log(this.state.hide)
         if(this.props.onSubmit){
             this.props.onSubmit({
                 title: this.state.title,
@@ -58,6 +65,7 @@ class FindForm extends React.Component{
                 ingredients: this.state.ingredients,
                 sorting: this.state.sorting,
                 sortingDir: this.state.sortingDir,
+                hide: this.state.hide,
             })
         }
     }
@@ -123,6 +131,19 @@ class FindForm extends React.Component{
         </div>
     }
 
+    getHideToggle(){
+        let account = new Cookies().get("account");
+        if(account.roles && account.roles.includes("ROLE_ADMIN")){
+            return  <React.Fragment>
+            <Divider inverted /> 
+                <Form.Field>
+                    <Checkbox  onChange={this.hideChange.bind(this)} toggle label="Показать скрытые"/>               
+                </Form.Field>  
+            </React.Fragment>
+        }
+        return ""  
+    }
+
 
     render(){
         return <Grid>
@@ -146,10 +167,12 @@ class FindForm extends React.Component{
                     <Form.Field>
                         <MultiAddDropdown placeholder='Ingredients' onChange={this.ingredientsChange.bind(this)} options={this.state.ingredientOptions}/>               
                     </Form.Field>  
+
+                        {this.getHideToggle()}
                     <Divider inverted /> 
-                    {this.getSortingPanel()}
+                        {this.getSortingPanel()}
                     <Divider inverted /> 
-                    {this.getSortingDirPanel()}
+                        {this.getSortingDirPanel()}
                 </Form>                
             </Segment>
             <Button fluid attached="bottom" color="blue" icon='filter' size='big' content="Применить" onClick={this.submit.bind(this)} />
